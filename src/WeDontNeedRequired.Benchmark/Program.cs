@@ -18,6 +18,7 @@ public class RequireProperties
     private HttpContent? content;
 
     [Params(DeserializationMode.SystemTextJson,
+            DeserializationMode.NewtonsoftJson,
             DeserializationMode.NewtonsoftJsonWithRequiredProperties,
             DeserializationMode.NewtonsoftJsonWithRequiredPropertiesAndMissingPropertiesHandling)]
     public DeserializationMode DeserializationMode;
@@ -39,7 +40,9 @@ public class RequireProperties
     {
         /*List<Task> tasks = Enumerable.Range(1, 50000).Select(counter => PerformRequest()).ToList();
         await Task.WhenAll(tasks);*/
-        for (int i = 0; i < 1152 / DegreeOfParallelism; i++)
+        
+
+        for (int i = 0; i < 1152 * 30 / DegreeOfParallelism; i++)
         {
             List<Task> tasks = Enumerable.Range(1, DegreeOfParallelism).Select(counter => PerformRequest()).ToList();
             await Task.WhenAll(tasks);

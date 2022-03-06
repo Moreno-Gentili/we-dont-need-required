@@ -20,7 +20,11 @@ public class Startup
         {
             mvcBuilder.AddNewtonsoftJson(options =>
             {
-                options.SerializerSettings.ContractResolver = new RequirePropertiesContractResolver();
+                if (deserializationMode != DeserializationMode.NewtonsoftJson)
+                {
+                    options.SerializerSettings.ContractResolver = new RequirePropertiesContractResolver();
+                }
+                
                 if (deserializationMode == DeserializationMode.NewtonsoftJsonWithRequiredPropertiesAndMissingPropertiesHandling)
                 {
                     options.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Error;
@@ -29,7 +33,10 @@ public class Startup
         }
 
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
+        services.AddSwaggerGen(opt =>
+        {
+            opt.SchemaFilter<SwaggerExamplesSchemaFilter>();
+        });
         if (deserializationMode != DeserializationMode.SystemTextJson)
         {
             services.AddSwaggerGenNewtonsoftSupport();

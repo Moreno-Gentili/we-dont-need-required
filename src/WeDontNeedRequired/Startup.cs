@@ -1,3 +1,5 @@
+using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using WeDontNeedRequired.Serialization;
 
@@ -35,7 +37,14 @@ public class Startup
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(opt =>
         {
-            opt.SchemaFilter<SwaggerExamplesSchemaFilter>();
+            // opt.SchemaFilter<SwaggerExamplesSchemaFilter>();
+            opt.MapType(typeof(TimeSpan), () => new OpenApiSchema
+            {
+                Type = "string",
+                Format = "HH:MM:SS",
+                Example = new OpenApiString("00:00:00"),
+                Nullable = false
+            });
         });
         if (deserializationMode != DeserializationMode.SystemTextJson)
         {

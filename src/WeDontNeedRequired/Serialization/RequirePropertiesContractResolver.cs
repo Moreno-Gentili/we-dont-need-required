@@ -37,10 +37,15 @@ public class RequirePropertiesContractResolver : DefaultContractResolver
         {
             return Required.Default;
         }
+        
+        return IsNullable(propertyInfo) ? Required.AllowNull : Required.Always;
+    }
 
+    private bool IsNullable(PropertyInfo propertyInfo)
+    {
         NullabilityInfoContext nullabilityContext = new();
         NullabilityInfo info = nullabilityContext.Create(propertyInfo);
-        return info.ReadState == NullabilityState.Nullable ? Required.AllowNull : Required.Always;
+        return info.ReadState == NullabilityState.Nullable;
     }
 
     private JsonObjectContract CreateAllPropertiesRequiredJsonObjectContract(Type objectType)

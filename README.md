@@ -9,7 +9,7 @@ In questo modo, l'uso dell'attributo `[Required]` diventa superfluo e può esser
 
 > Chiarimento sulla nomenclatura: una proprietà è **obbligatoria** quando non ammette valori `null`. Una proprietà è **richiesta** quando il client deve esplicitamente fornirla e valorizzarla nel payload JSON che invia all'applicazione. Questo progetto mostra come **richiedere** tutte le proprietà, sia obbligatorie che non obbligatorie.
 
-Il progetto include un [SwaggerRequiredPropertiesSchemaFilter](src/WeDontNeedRequired/Swagger/SwaggerRequiredPropertiesSchemaFilter.cs) per fare in modo che la documentazione Swagger sia coerente con il comportamento del deserializzatore. **Dato che ogni proprietà è richiesta, viene contrassegnata con un asterisco rosso**. Le proprietà che possono essere valorizzate con `null` sono annotate con `nullable: true`.
+Il progetto include un [SwaggerRequiredPropertiesSchemaFilter](src/WeDontNeedRequired/Swagger/SwaggerRequiredPropertiesSchemaFilter.cs) per fare in modo che la documentazione Swagger sia coerente con il comportamento del deserializzatore. **Dato che ogni proprietà è richiesta, viene contrassegnata con un asterisco rosso**. Le proprietà non obbligatorie sono annotate con `nullable: true`.
 
 ![Swagger.png](Swagger.png)
 

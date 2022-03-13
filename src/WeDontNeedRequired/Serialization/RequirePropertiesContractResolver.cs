@@ -38,6 +38,7 @@ public class RequirePropertiesContractResolver : DefaultContractResolver
             return Required.Default;
         }
         
+        // Usa Required.Default al posto di Required.AllowNull se vuoi permettere al client di omettere le proprietà facoltative nel payload della richiesta
         return IsNullable(propertyInfo) ? Required.AllowNull : Required.Always;
     }
 

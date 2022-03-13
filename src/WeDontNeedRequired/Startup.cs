@@ -18,16 +18,16 @@ public class Startup
 
         IMvcBuilder mvcBuilder = services.AddControllers();
 
-        if (deserializationMode != DeserializationMode.SystemTextJson)
+        if (deserializationMode is not DeserializationMode.SystemTextJson)
         {
             mvcBuilder.AddNewtonsoftJson(options =>
             {
-                if (deserializationMode != DeserializationMode.NewtonsoftJson)
+                if (deserializationMode is DeserializationMode.NewtonsoftJsonWithRequiredProperties or DeserializationMode.NewtonsoftJsonWithRequiredPropertiesAndMissingPropertiesHandling)
                 {
                     options.SerializerSettings.ContractResolver = new RequirePropertiesContractResolver();
                 }
                 
-                if (deserializationMode == DeserializationMode.NewtonsoftJsonWithRequiredPropertiesAndMissingPropertiesHandling)
+                if (deserializationMode is DeserializationMode.NewtonsoftJsonWithRequiredPropertiesAndMissingPropertiesHandling)
                 {
                     options.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Error;
                 }
@@ -46,7 +46,7 @@ public class Startup
                 Nullable = false
             });
         });
-        if (deserializationMode != DeserializationMode.SystemTextJson)
+        if (deserializationMode is not DeserializationMode.SystemTextJson)
         {
             services.AddSwaggerGenNewtonsoftSupport();
         }

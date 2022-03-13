@@ -1,9 +1,20 @@
 # We don't need [Required]
 Il progetto [WeDontNeedRequired](src/WeDontNeedRequired/) è un'applicazione ASP.NET Core per .NET 6 in cui il deserializzazione [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/) è configurato per fare in modo che il client:
- * **Includa** tutte le proprietà previste nel [payload della richiesta](src/WeDontNeedRequired/Models/TimeTravelConfiguration.cs), comprese quelle non obbligatorie che dovranno esplicitamente essere impostate a `null`. Questo comportamento è ottenuto con un `ContractResolver` personalizzato ([vedi il codice](src/WeDontNeedRequired/Serialization/RequirePropertiesContractResolver.cs#L17));
+ * **Includa** tutte le proprietà presenti nel [payload della richiesta](src/WeDontNeedRequired/Models/TimeTravelConfiguration.cs), comprese quelle non obbligatorie che dovranno esplicitamente essere impostate a `null`. Questo comportamento è ottenuto con un `ContractResolver` personalizzato ([vedi il codice](src/WeDontNeedRequired/Serialization/RequirePropertiesContractResolver.cs#L17));
  * **Escluda** ogni altra proprietà che rechi un nome non previsto nel payload della richiesta. Questo comportamento è ottenuto impostando la proprietà `MissingMemberHandling` del deserializzatore ([vedi il codice](src/WeDontNeedRequired/Startup.cs#L32)).
 
-Se il client vìola queste regole, ottiene una risposta con status code `400 Bad Request` che gli evidenzia gli errori presenti nel payload. In questo modo riesce subito ad accorgersi di eventuali errori di digitazione nel nome delle proprietà o del loro errato annidamento all'interno del payload JSON.
+Se il client vìola queste regole, ottiene una risposta con status code `400 Bad Request` che gli evidenzia gli errori presenti nel payload. In questo modo riesce subito ad accorgersi di eventuali errori di digitazione nel nome delle proprietà o del loro errato annidamento all'interno del payload.
+
+In questo modo, l'uso dell'attributo `[Required]` diventa superfluo e può essere omesso.
+
+> Chiarimento sulla nomenclatura: una proprietà è **obbligatoria** quando non ammette valori `null`. Una proprietà è **richiesta** quando il client deve esplicitamente fornirla e valorizzarla nel payload JSON che invia all'applicazione. Questo progetto mostra come **richiedere** tutte le proprietà, sia obbligatorie che non obbligatorie.
+
+Il progetto include un [SwaggerRequiredPropertiesSchemaFilter](src/WeDontNeedRequired/Swagger/SwaggerRequiredPropertiesSchemaFilter.cs) per fare in modo che la documentazione Swagger sia coerente con il comportamento del deserializzatore. **Dato che ogni proprietà è richiesta, viene contrassegnata con un asterisco rosso**. Le proprietà che possono essere valorizzate con `null` sono annotate con `nullable: true`.
+
+![Swagger.png](Swagger.png)
+
+Se preferisci invece che nella documentazione Swagger l'asterisco rosso sia posto solo di fianco alle proprietà obbligatorie, allora decommenta la [riga 14 dello schema filter](src/WeDontNeedRequired/Swagger/SwaggerRequiredPropertiesSchemaFilter.cs#L14).
+
 
 ## Benchmark
 Il progetto [WeDontNeedRequired.Benchmark](src/WeDontNeedRequired.Benchmark/) usa [BenchmarkDotNet](https://benchmarkdotnet.org/articles/overview.html) per quantificare le capacità prestazionali dell'applicazione [WeDontNeedRequired](src/WeDontNeedRequired/) con varie configurazioni del deserializzatore.

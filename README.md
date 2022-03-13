@@ -19,9 +19,11 @@ Se preferisci invece che nella documentazione Swagger l'asterisco rosso sia post
 ## Benchmark
 Il progetto [WeDontNeedRequired.Benchmark](src/WeDontNeedRequired.Benchmark/) usa [BenchmarkDotNet](https://benchmarkdotnet.org/articles/overview.html) per quantificare le capacità prestazionali dell'applicazione [WeDontNeedRequired](src/WeDontNeedRequired/) con varie configurazioni del deserializzatore.
 
- * <font color="gold">▇</font> System.Text.Json (il default per ASP.NET Core 3+);
- * <font color="dodgerblue">▇</font> Newtonsoft.Json;
- * <font color="limegreen">▇</font> Newtonsoft.Json con obbligo di inclusione delle proprietà obbligatorie ed esclusione di proprietà sconosciute;
+ * ![Arancio](https://via.placeholder.com/15/ffc61c/000000?text=+) System.Text.Json (il default per ASP.NET Core 3+);
+
+ * ![Azzurro](https://via.placeholder.com/15/79addc/000000?text=+)  Newtonsoft.Json;
+
+ * ![Verde](https://via.placeholder.com/15/91c072/000000?text=+)  Newtonsoft.Json con obbligo di inclusione delle proprietà obbligatorie ed esclusione di proprietà sconosciute;
 
 Puoi eseguire il benchmark esegendo il seguente comando nella directory [src/WeDontNeedRequired.Benchmark/](src/WeDontNeedRequired.Benchmark/)
 

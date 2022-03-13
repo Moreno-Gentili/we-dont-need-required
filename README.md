@@ -26,6 +26,6 @@ Il seguente grafico visualizza i risultati ottenuti. Puoi vedere i dati grezzi n
 
 Usare questa soluzione comporta una riduzione di circa il 30% sul throughput grezzo ottenibile con un'applicazione ASP.NET Core "vuota", cioè che non implementa alcuna funzionalità.
 
-Ipoteticamente, le prestazioni potrebbero migliorare con .NET 7, quando anche System.Text.Json permetterà il controllo delle proprietà nel payload.
+Ipoteticamente, le prestazioni potrebbero migliorare con .NET 7, quando anche `System.Text.Json` permetterà il controllo delle proprietà nel payload.
 
-> Segui la [issue #63762](https://github.com/dotnet/runtime/issues/63762) di Microsoft che tiene traccia delle funzionalità pianificate per System.Text.Json in .NET 7.
+> Segui la [issue #63762 di dotnet/runtime su GitHub](https://github.com/dotnet/runtime/issues/63762) che tiene traccia delle funzionalità pianificate per `System.Text.Json` in .NET 7.
